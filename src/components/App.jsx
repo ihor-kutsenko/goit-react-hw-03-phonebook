@@ -12,6 +12,8 @@ import Filter from './Filter/Filter';
 import dafaultContacts from './contacts.json';
 import './App.module.css';
 
+const LS_KEY = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: dafaultContacts,
@@ -19,8 +21,8 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
+    const contactsLS = localStorage.getItem(LS_KEY);
+    const parsedContacts = JSON.parse(contactsLS);
 
     if (parsedContacts) {
       this.setState({ contacts: parsedContacts });
@@ -33,7 +35,7 @@ export class App extends Component {
     if (this.state.contacts !== prevState.contacts) {
       // console.log('update contacts');
 
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
     }
   }
 
